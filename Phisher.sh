@@ -9,7 +9,8 @@ sleep 2
 
 # Start cloudflared tunnel
 echo "[+] Starting Cloudflared Tunnel on port 3333..."
-URL=$(cloudflared tunnel --url http://127.0.0.1:3333 2>&1 | grep -Eo 'https://[a-z0-9]+\.trycloudflare\.com' | head -n 1)
+IP=$(ip addr show wlan0 | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)
+echo "[+] Access the page at: http://$IP:3333"
 
 if [[ -z "$URL" ]]; then
   echo "[-] Failed to get Cloudflared URL. Make sure cloudflared is installed."
